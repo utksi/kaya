@@ -17,7 +17,6 @@ XDATCAR
 *.xsf
 *.xyz
 *.cif
-*_readable.txt
 
 # Python
 __pycache__/
@@ -57,7 +56,6 @@ Thumbs.db
 *.swo
 
 # Project specific
-wfull_tmp/
-reference/
-src/
-WFULL*_readable.txt
+wfull_tmp/*.tmp
+wfull_tmp/WAVECAR
+wfull_tmp/OUTCAR
