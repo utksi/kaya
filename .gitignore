@@ -1,0 +1,61 @@
+# VASP files
+WFULL*.tmp
+WAVECAR
+CHG
+CHGCAR
+DOSCAR
+EIGENVAL
+IBZKPT
+OSZICAR
+PCDAT
+REPORT
+vasprun.xml
+XDATCAR
+
+# Large output files
+*.cube
+*.xsf
+*.xyz
+*.cif
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+wfull_tmp/*.tmp
+wfull_tmp/WAVECAR
+wfull_tmp/OUTCAR
