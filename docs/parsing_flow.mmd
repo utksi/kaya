@@ -1,0 +1,55 @@
+%%{init: {'theme': 'forest', 'themeVariables': {
+    'primaryColor': '#6495ED',
+    'primaryTextColor': '#ffffff',
+    'primaryBorderColor': '#4169E1',
+    'lineColor': '#4682B4',
+    'secondaryColor': '#48D1CC',
+    'tertiaryColor': '#98FB98'
+}}}%%
+graph TD
+    classDef processNode fill:#6495ED,color:#ffffff,stroke:#4169E1,stroke-width:2px;
+    classDef dataNode fill:#48D1CC,color:#000000,stroke:#4682B4,stroke-width:2px;
+    classDef outputNode fill:#98FB98,color:#000000,stroke:#3CB371,stroke-width:2px;
+    
+    A[WFULL Binary File] --> B[Read Record Size Markers]
+    B --> C[Parse Header Block]
+    C --> D{Extract Metadata}
+    D -->|Frequency| E[Store Frequency Point]
+    D -->|Dimensions| F[Get ngvector]
+    
+    F --> G[Read WING Matrix]
+    F --> H[Read CWING Matrix]
+    F --> I[Read Response Matrix]
+    
+    G --> J[Validate Dimensions]
+    H --> J
+    I --> J
+    
+    J --> K[Apply Header Scaling]
+    K --> L[Generate Human-Readable Output]
+    
+    L --> M[Matrix Samples]
+    L --> N[Metadata Summary]
+    L --> O[Dimension Info]
+    
+    subgraph "Binary Processing"
+        B
+        C
+        D
+    end
+    
+    subgraph "Matrix Extraction"
+        G
+        H
+        I
+    end
+    
+    subgraph "Output Generation"
+        M
+        N
+        O
+    end
+    
+    class A,B,C,D,E,F dataNode;
+    class G,H,I,J processNode;
+    class K,L,M,N,O outputNode;

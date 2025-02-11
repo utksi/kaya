@@ -7,6 +7,10 @@
 
 Tools for analyzing frequency-dependent screening in VASP calculations, particularly focused on Auger recombination in perovskite materials.
 
+## Parsing Flow
+
+![Parsing Flow Diagram](docs/parsing_flow.png)
+
 ## Features
 
 - Read and parse VASP WFULL files containing screened Coulomb interaction data
