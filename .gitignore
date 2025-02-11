@@ -11,6 +11,7 @@ PCDAT
 REPORT
 vasprun.xml
 XDATCAR
+*strategy*
 
 # Large output files
 *_readable.txt
