@@ -12,6 +12,7 @@ REPORT
 vasprun.xml
 XDATCAR
 *strategy*
+*history*
 
 # Large output files
 *_readable.txt

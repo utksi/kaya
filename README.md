@@ -46,13 +46,14 @@ This will:
 
 ```
 kaya/
-├── docs/                    # Documentation
+├── docs/                   # Documentation
 │   ├── WFULL_format.md     # WFULL file format description
-│   ├── parsing_strategy.md # Detailed parsing methodology
-│   └── auger_calculation_strategy.md  # Calculation methodology
+│   └── parsing_flow.md # Detailed parsing methodology
 ├── read_wfull_data.py      # Main script for reading WFULL files
 ├── read_wfull.py           # Alternative reader implementation
-└── read_wfull_debug.py     # Debugging utilities
+├── read_wfull_debug.py     # Debugging utilities
+├── README.md               # Face
+└── LICENSE                 # Default
 ```
 
 ## License
