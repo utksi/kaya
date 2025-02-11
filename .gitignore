@@ -13,10 +13,6 @@ vasprun.xml
 XDATCAR
 
 # Large output files
-*.cube
-*.xsf
-*.xyz
-*.cif
 *_readable.txt
 
 # Python
