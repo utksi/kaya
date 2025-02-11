@@ -3,9 +3,9 @@
   <img src="docs/kaya.jpg" alt="Kaya" width="80" style="margin-left: 10px;">
 </h1>
 
-Tools for analyzing frequency-dependent screening in VASP calculations, particularly focused on Auger recombination in perovskite materials.
-
 > ℹ️ **Important:** This is more or less a test repo., so all the files are not here!
+
+Tools for analyzing frequency-dependent screening in VASP calculations, particularly focused on Auger recombination in perovskite materials.
 
 ## Features
 
