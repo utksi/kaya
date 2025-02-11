@@ -1,0 +1,65 @@
+# Kaya Project Rules
+
+## Code Organization
+
+1. **File Structure**
+   - Keep WFULL file processing scripts in the root directory
+   - Store all documentation in `docs/`
+   - Place test files and data in `tests/`
+   - Use `src/` for core implementation modules
+
+2. **Naming Conventions**
+   - Use descriptive names for frequency-dependent quantities (e.g., `freq_dependent_W` not just `W`)
+   - Prefix temporary/intermediate files with `tmp_`
+   - Use snake_case for Python files and functions
+   - Include units in variable names where applicable (e.g., `energy_ev`, `frequency_thz`)
+
+## Data Handling
+
+3. **WFULL Files**
+   - Never commit WFULL*.tmp files to git
+   - Store processed data in human-readable format
+   - Keep original WFULL files in a separate `wfull_tmp/` directory
+   - Document frequency points and k-points clearly in output files
+
+4. **Matrix Operations**
+   - Use NumPy for all matrix operations
+   - Verify matrix dimensions before operations
+   - Cache large matrices when processing multiple files
+   - Document matrix shapes in function docstrings
+
+## Physics and Calculations
+
+5. **Auger Calculations**
+   - Always specify energy units explicitly
+   - Document approximations used in calculations
+   - Validate energy conservation in Auger processes
+   - Include error estimates for calculated rates
+
+6. **Screening Effects**
+   - Track frequency dependence carefully
+   - Document screening model assumptions
+   - Validate dielectric function properties (causality, symmetry)
+   - Note convergence parameters for G-vectors
+
+## Documentation
+
+7. **Code Documentation**
+   - Include equations in docstrings for physics-related functions
+   - Reference relevant papers for implemented methods
+   - Document units and conventions clearly
+   - Explain physical meaning of matrix elements
+
+8. **Output Files**
+   - Include metadata in all output files
+   - Document frequency points and k-points
+   - Save calculation parameters with results
+   - Use consistent formatting for readable files
+
+## Version Control
+
+9. **Git Practices**
+   - Keep large data files out of repository
+   - Document significant physics changes in commit messages
+   - Tag versions used in publications
+   - Branch for each major physics feature
