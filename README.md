@@ -7,7 +7,6 @@ Tools for analyzing frequency-dependent screening in VASP calculations, particul
 - Read and parse VASP WFULL files containing screened Coulomb interaction data
 - Extract frequency-dependent W(G,G',q,ω)
 - Calculate Auger recombination matrix elements
-- Support for halide perovskite materials
 
 ## Installation
 
