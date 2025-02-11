@@ -1,4 +1,4 @@
-# Kaya
+# Kaya [ ](./kaya.jpg)
 
 Tools for analyzing frequency-dependent screening in VASP calculations, particularly focused on Auger recombination in perovskite materials.
 
