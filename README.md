@@ -9,7 +9,7 @@ Tools for analyzing frequency-dependent screening in VASP calculations, particul
 
 ## Parsing Flow
 
-![Parsing Flow Diagram](docs/parsing_flow.png)
+![Parsing Flow Diagram](docs/parsing_flow.svg)
 
 ## Features
 
