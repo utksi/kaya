@@ -1,4 +1,4 @@
-#[Kaya](docs/kaya.jpg)
+#[![Kaya - Screening Analysis Tool](docs/kaya.jpg "Kaya")]
 
 Tools for analyzing frequency-dependent screening in VASP calculations, particularly focused on Auger recombination in perovskite materials.
 
