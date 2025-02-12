@@ -20,7 +20,7 @@ Tools for analyzing frequency-dependent screening in VASP calculations, particul
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/kaya.git
+git clone https://github.com/utksi/kaya.git
 cd kaya
 ```
 
