@@ -39,7 +39,7 @@ This will:
 ## Documentation
 
 - [WFULL File Format](docs/WFULL_format.md)
-- [Parsing Strategy](docs/parsing_strategy.md)
+- [Parsing Strategy](docs/parsing_flow.md)
 - [Auger Calculation Strategy](docs/auger_calculation_strategy.md)
 
 ## Project Structure
