@@ -117,40 +117,117 @@ Explained advantages of G0W0R approach.
 - Importance for frequency sampling
 - Material-specific values
 
-## Implementation Details
+## Reciprocal Space Calculation of Auger Matrix Elements
 
-### 1. VASP Modifications
-```fortran
-! In gw_routines.F
-SUBROUTINE WRITE_W_FREQ(WQFULL,FREQS,NFRQ)
-   ! Write W(G,G',ω) at multiple frequencies
-   USE constant
-   IMPLICIT NONE
-   COMPLEX(q) WQFULL(NGX*NGY*NGZ,NGX*NGY*NGZ,NFRQ)
-   REAL(q) FREQS(NFRQ)
-   ! Implementation...
-END SUBROUTINE
+### 1. Real Space to Reciprocal Space Transformation
+
+The Auger matrix element in real space is given by:
+```
+M_Auger = ∫dr dr' ψ₁*(r)ψ₂*(r')W(r,r',ΔE)ψ₃(r)ψ₄(r')
 ```
 
-### 2. Python Analysis Code
-```python
-def calculate_auger_matrix_element(w1, w2, w3, w4, q, dE):
-    """Calculate Auger matrix element with frequency-dependent W
-    
-    Args:
-        w1, w2, w3, w4: Wavefunctions
-        q: Momentum transfer
-        dE: Energy transfer
-    
-    Returns:
-        Complex matrix element
-    """
-    # Get W at needed frequency
-    W_dE = interpolate_W(read_wfull_data(), dE)
-    
-    # Calculate overlap
-    return compute_overlap(w1, w2, w3, w4, W_dE)
-```
+To transform this to reciprocal space, we:
+
+1. **Express Wavefunctions in Bloch Form**:
+   ```
+   ψₙₖ(r) = (1/√V) exp(ik·r) uₙₖ(r)
+   ```
+   where:
+   - n is the band index
+   - k is the crystal momentum
+   - uₙₖ(r) is the periodic part of the Bloch function
+   - V is the crystal volume
+
+2. **Express the Screened Interaction**:
+   ```
+   W(r,r',ΔE) = (1/V) ∑_{G,G'} W(G,G',q,ΔE) exp[iG·r + iG'·r']
+   ```
+   where:
+   - G, G' are reciprocal lattice vectors
+   - q = k₄ - k₂ is the momentum transfer
+   - W(G,G',q,ΔE) comes directly from WFULL files
+
+3. **Define Transition Densities**:
+   ```
+   ρ₁₃(G,q) = ∫dr uₙ₁,k₁*(r)uₙ₃,k₃(r)exp(-iG·r)
+   ρ₂₄(G',q) = ∫dr' uₙ₂,k₂*(r')uₙ₄,k₄(r')exp(-iG'·r')
+   ```
+
+4. **Final Reciprocal Space Expression**:
+   ```
+   M_Auger = (1/V) ∑_{G,G'} ρ₁₃(G,q)W(G,G',q,ΔE)ρ₂₄(G',-q)
+   ```
+
+### 2. VASP Plane Wave Implementation
+
+1. **Wavefunctions in VASP**:
+   In VASP, the wavefunctions are expanded in a plane wave basis:
+   ```
+   ψₙₖ(r) = (1/√Ω) ∑_G cₙₖ(G) exp[i(k+G)·r]
+   ```
+   where:
+   - Ω is the unit cell volume
+   - cₙₖ(G) are the plane wave coefficients from WAVECAR
+   - The sum is over G-vectors with kinetic energy ≤ ENCUT
+
+2. **Transition Density in Plane Waves**:
+   The transition density ρ₁₃(G,q) becomes:
+   ```
+   ρ₁₃(G,q) = (1/√Ω) ∑_{G'} c*₁,k₁(G')c₃,k₃(G'+G)
+   ```
+   where:
+   - G' runs over the common G-vectors of states 1 and 3
+   - Momentum conservation requires: k₃ = k₁ - q
+   - Similar expression for ρ₂₄(G',q)
+
+3. **Matrix Element in Plane Waves**:
+   The Auger matrix element becomes:
+   ```
+   M_Auger = (1/Ω) ∑_{G,G'} [∑_{G₁} c*₁,k₁(G₁)c₃,k₃(G₁+G)] × 
+                            W(G,G',q,ΔE) × 
+                            [∑_{G₂} c*₂,k₂(G₂)c₄,k₄(G₂+G')]
+   ```
+
+### 3. Important Implementation Considerations
+
+1. **G-vector Management**:
+   - Energy cutoff determines the G-vector set size
+   - Proper handling of G-vector grids between WAVECAR and WFULL
+   - Momentum conservation in G-vector selection
+
+2. **Symmetry Utilization**:
+   - VASP wavefunctions already include symmetry operations
+   - Time-reversal symmetry can reduce computation
+   - Point group operations for equivalent transitions
+
+3. **Computational Efficiency**:
+   - Sparse storage for large G-vector sets
+   - Memory-efficient WAVECAR reading
+   - Block operations for matrix elements
+   - Parallel computation strategies
+
+4. **Convergence Parameters**:
+   - ENCUT for wavefunctions
+   - Response function cutoff
+   - k-point sampling
+   - Number of bands
+
+### 4. Physical Validation
+
+1. **Conservation Laws**:
+   - Energy conservation: E₃ + E₄ = E₁ + E₂
+   - Crystal momentum conservation: k₃ + k₄ = k₁ + k₂ + G
+   - Time-reversal symmetry relations
+
+2. **Known Limits**:
+   - Long wavelength limit of W(q→0)
+   - High-frequency limit of W(ω→∞)
+   - Hermiticity of W(G,G',q,ω)
+
+3. **Sum Rules**:
+   - f-sum rule for transition rates
+   - Spectral weight conservation
+   - Detailed balance relations
 
 ## Key References
 1. Theoretical Framework
